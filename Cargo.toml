@@ -1,0 +1,30 @@
+[package]
+name = "enum_macros"
+version = "0.0.1"
+edition = "2021"
+description = "A collection of useful macros to make working with enums easier."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/cyrgani/enum_macros"
+keywords = ["enum", "macros", "proc-macros"]
+categories = ["development-tools::procedural-macro-helpers"]
+readme = "README.md"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = { version = "2", features = ["full"] }
+quote = "1"
+proc-macro2 = "1"
+
+[features]
+custom_discriminant = []
+marker_type = []
+next_variant = []
+std = []
+variant_amount = []
+default = ["all"]
+all = ["custom_discriminant", "marker_type", "next_variant", "std", "variant_amount"]
+
+[dev-dependencies]
+enum_macros = { path = ".", default-features = false, features = ["all"] }
