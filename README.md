@@ -1,4 +1,7 @@
 # enum-macros
+[![Crates.io Version](https://img.shields.io/crates/v/enum_macros)](https://crates.io/crates/enum_macros)
+[![docs.rs (with version)](https://img.shields.io/docsrs/enum_macros/latest)](https://docs.rs/enum_macros/latest/enum_macros/)
+
 A collection of useful macros to make working with enums easier.
 
 ## Current features
