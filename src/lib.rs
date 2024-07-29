@@ -83,6 +83,7 @@ pub fn custom_discriminant(attr: TokenStream, item: TokenStream) -> TokenStream 
 /// ```
 /// use enum_macros::marker_type;
 ///
+/// #[marker_type]
 /// enum Type<'a, T: Clone> {
 ///     A(&'a u32),
 ///     B(T),
