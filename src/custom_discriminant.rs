@@ -1,9 +1,18 @@
 use crate::utils::{default_fields_right, ignore_fields_left, impl_header};
 use proc_macro2::TokenStream;
 use quote::quote;
-use syn::{ItemEnum, Type, Variant};
+use syn::spanned::Spanned;
+use syn::{Error, ItemEnum, Type, Variant};
 
-pub fn custom_discriminant(disc_ty: Type, item: ItemEnum) -> TokenStream {
+pub fn custom_discriminant(attr: TokenStream, item: ItemEnum) -> TokenStream {
+    let attr_span = attr.span();
+
+    let Ok(disc_ty) = syn::parse2::<Type>(attr) else {
+        return Error::new(attr_span, "missing type of custom discriminant").to_compile_error();
+    };
+
+    let mut errors = TokenStream::new();
+
     let impl_header = impl_header(&item);
     let (impl_generics, ty_generics, where_clause) = item.generics.split_for_impl();
     let enum_ident = &item.ident;
@@ -15,10 +24,12 @@ pub fn custom_discriminant(disc_ty: Type, item: ItemEnum) -> TokenStream {
     let mut try_discriminant_to_variant_match_lines = TokenStream::new();
 
     for variant in &item.variants {
-        let (_, discriminant) = variant
-            .discriminant
-            .as_ref()
-            .expect("Every variant must have a discriminant!");
+        let Some((_, discriminant)) = variant.discriminant.as_ref() else {
+            errors.extend(
+                Error::new_spanned(variant, "missing variant discriminant").to_compile_error(),
+            );
+            continue;
+        };
 
         let variant_ident = &variant.ident;
 
@@ -47,6 +58,8 @@ pub fn custom_discriminant(disc_ty: Type, item: ItemEnum) -> TokenStream {
     };
 
     quote! {
+        #errors
+
         #enum_without_discriminants
 
         impl #impl_header {

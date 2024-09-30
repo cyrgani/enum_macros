@@ -1,0 +1,7 @@
+error: missing type of custom discriminant
+ --> tests/custom_discriminant/fail/missing_type.rs:3:1
+  |
+3 | #[custom_discriminant]
+  | ^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: this error originates in the attribute macro `custom_discriminant` (in Nightly builds, run with -Z macro-backtrace for more info)

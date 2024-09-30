@@ -3,7 +3,7 @@
 #![warn(clippy::pedantic, clippy::nursery, clippy::cargo, missing_docs)]
 #![allow(clippy::needless_pass_by_value)]
 use proc_macro::TokenStream;
-use syn::{parse_macro_input, ItemEnum, Type};
+use syn::{parse_macro_input, Error, ItemEnum};
 
 mod utils;
 
@@ -31,6 +31,8 @@ mod variant_amount;
 /// * `impl From<ENUM_TYPE> for DISCRIMINANT_TYPE`
 /// * `impl TryFrom<DISCRIMINANT_TYPE> for ENUM_TYPE`
 ///
+/// The discriminant may be a `const` item, but not a `static`.
+///
 /// # Panics
 /// Panics if there is a variant without a custom discriminant.
 ///
@@ -49,11 +51,8 @@ mod variant_amount;
 #[cfg(feature = "custom_discriminant")]
 #[proc_macro_attribute]
 pub fn custom_discriminant(attr: TokenStream, item: TokenStream) -> TokenStream {
-    custom_discriminant::custom_discriminant(
-        parse_macro_input!(attr as Type),
-        parse_macro_input!(item as ItemEnum),
-    )
-    .into()
+    custom_discriminant::custom_discriminant(attr.into(), parse_macro_input!(item as ItemEnum))
+        .into()
 }
 
 /// Adds a new enum that has the same variants as this enum, but holds no data.
@@ -113,12 +112,15 @@ pub fn next_variant(_attr: TokenStream, item: TokenStream) -> TokenStream {
 }
 
 /// Adds methods for unwrapping variants of the enum.
-/// # TODO: more documentation
+///
+/// This derive macro can only be applied to enums where the annotated
+///
+/// The generated methods will return the
 #[cfg(feature = "unwrap_variant")]
 #[proc_macro_derive(UnwrapVariant, attributes(unwrap))]
 pub fn unwrap_variant(item: TokenStream) -> TokenStream {
     unwrap_variant::unwrap_variant(parse_macro_input!(item as ItemEnum))
-        .unwrap_or_else(syn::Error::into_compile_error)
+        .unwrap_or_else(Error::into_compile_error)
         .into()
 }
 

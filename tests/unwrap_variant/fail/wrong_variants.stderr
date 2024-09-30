@@ -18,3 +18,10 @@ error: UnwrapVariant can only be derived for single unnamed variants
 10 | /     #[unwrap(ref, mut)]
 11 | |     C(u8, u8),
    | |_____________^
+
+error: UnwrapVariant can only be derived for single unnamed variants
+  --> tests/unwrap_variant/fail/wrong_variants.rs:12:5
+   |
+12 | /     #[unwrap(ref)]
+13 | |     D { },
+   | |_________^

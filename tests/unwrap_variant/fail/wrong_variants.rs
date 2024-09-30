@@ -9,6 +9,8 @@ enum Test {
     B,
     #[unwrap(ref, mut)]
     C(u8, u8),
+    #[unwrap(ref)]
+    D { },
 }
 
 fn main() {}

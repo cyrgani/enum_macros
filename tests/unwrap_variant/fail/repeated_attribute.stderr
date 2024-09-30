@@ -1,0 +1,5 @@
+error: duplicate attribute
+ --> tests/unwrap_variant/fail/repeated_attribute.rs:6:24
+  |
+6 |     #[unwrap(ref, mut, ref)]
+  |                        ^^^

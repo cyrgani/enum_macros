@@ -1,0 +1,41 @@
+error[E0530]: match bindings cannot shadow statics
+ --> tests/custom_discriminant/fail/static_as_discriminant.rs:8:11
+  |
+3 | static BAR: u8 = 0;
+  | ------------------- the static `BAR` is defined here
+...
+8 |     Bar = BAR,
+  |           ^^^ cannot be named the same as a static
+
+error[E0530]: match bindings cannot shadow statics
+ --> tests/custom_discriminant/fail/static_as_discriminant.rs:9:11
+  |
+4 | static BAZ: u8 = 1;
+  | ------------------- the static `BAZ` is defined here
+...
+9 |     Baz = BAZ,
+  |           ^^^ cannot be named the same as a static
+
+warning: unreachable pattern
+ --> tests/custom_discriminant/fail/static_as_discriminant.rs:9:11
+  |
+8 |     Bar = BAR,
+  |           --- matches any value
+9 |     Baz = BAZ,
+  |           ^^^ unreachable pattern
+  |
+  = note: `#[warn(unreachable_patterns)]` on by default
+
+warning: unused variable: `BAR`
+ --> tests/custom_discriminant/fail/static_as_discriminant.rs:8:11
+  |
+8 |     Bar = BAR,
+  |           ^^^ help: if this is intentional, prefix it with an underscore: `_BAR`
+  |
+  = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `BAZ`
+ --> tests/custom_discriminant/fail/static_as_discriminant.rs:9:11
+  |
+9 |     Baz = BAZ,
+  |           ^^^ help: if this is intentional, prefix it with an underscore: `_BAZ`
