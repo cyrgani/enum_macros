@@ -16,29 +16,11 @@ mod marker_type;
 #[cfg(feature = "next_variant")]
 mod next_variant;
 
+#[cfg(feature = "unwrap_variant")]
+mod unwrap_variant;
+
 #[cfg(feature = "variant_amount")]
 mod variant_amount;
-
-/// Adds a constant storing the amount of variants the enum has to the enum.
-///
-/// # Examples
-/// ```
-/// use enum_macros::variant_amount;
-///
-/// #[variant_amount]
-/// enum Example {
-///     A,
-///     B,
-///     C,
-/// }
-///
-/// assert_eq!(Example::VARIANT_AMOUNT, 3);
-/// ```
-#[cfg(feature = "variant_amount")]
-#[proc_macro_attribute]
-pub fn variant_amount(_attr: TokenStream, item: TokenStream) -> TokenStream {
-    variant_amount::variant_amount(parse_macro_input!(item as ItemEnum)).into()
-}
 
 /// Adds support for custom enum "discriminants" of other types than `isize`.
 ///
@@ -128,4 +110,35 @@ pub fn marker_type(_attr: TokenStream, item: TokenStream) -> TokenStream {
 #[proc_macro_attribute]
 pub fn next_variant(_attr: TokenStream, item: TokenStream) -> TokenStream {
     next_variant::next_variant(parse_macro_input!(item as ItemEnum)).into()
+}
+
+/// Adds methods for unwrapping variants of the enum.
+/// # TODO: more documentation
+#[cfg(feature = "unwrap_variant")]
+#[proc_macro_derive(UnwrapVariant, attributes(unwrap))]
+pub fn unwrap_variant(item: TokenStream) -> TokenStream {
+    unwrap_variant::unwrap_variant(parse_macro_input!(item as ItemEnum))
+        .unwrap_or_else(syn::Error::into_compile_error)
+        .into()
+}
+
+/// Adds a constant storing the amount of variants the enum has to the enum.
+///
+/// # Examples
+/// ```
+/// use enum_macros::variant_amount;
+///
+/// #[variant_amount]
+/// enum Example {
+///     A,
+///     B,
+///     C,
+/// }
+///
+/// assert_eq!(Example::VARIANT_AMOUNT, 3);
+/// ```
+#[cfg(feature = "variant_amount")]
+#[proc_macro_attribute]
+pub fn variant_amount(_attr: TokenStream, item: TokenStream) -> TokenStream {
+    variant_amount::variant_amount(parse_macro_input!(item as ItemEnum)).into()
 }

@@ -1,0 +1,11 @@
+error: expected `enum`
+ --> tests/unwrap_variant/fail/not_enum.rs:4:1
+  |
+4 | struct S {
+  | ^^^^^^
+
+error: expected `enum`
+  --> tests/unwrap_variant/fail/not_enum.rs:11:1
+   |
+11 | union U {
+   | ^^^^^
