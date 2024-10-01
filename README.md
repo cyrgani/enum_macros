@@ -13,6 +13,8 @@ Each macro can be enabled and disabled individually by its respective Cargo feat
 * `marker_type`: creates a copy of an enum where no field holds data 
 * `next_variant`: allows moving forward through the variants of an enum
 * `variant_amount`: adds a constant storing the amount of variants the enum has
+* `UnwrapVariant`: adds methods for unwrapping variants of an enum
 
 ## `no_std` compability
-Disabling the `std` feature attempts to make the crate `no_std` compatible.
+Disabling the `std` feature attempts to make the crate `no_std` compatible. 
+This is not tested yet.

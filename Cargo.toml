@@ -1,6 +1,6 @@
 [package]
 name = "enum_macros"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2021"
 description = "A collection of useful macros to make working with enums easier."
 license = "MIT OR Apache-2.0"
