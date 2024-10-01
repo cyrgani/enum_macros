@@ -10,7 +10,7 @@ where
     T: Default,
     [T; N]: Default,
 {
-    A { val: S },
+    A { val: S, _k: usize },
     B([T; N]),
 }
 

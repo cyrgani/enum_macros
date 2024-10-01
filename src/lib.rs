@@ -32,6 +32,7 @@ mod variant_amount;
 /// * `impl TryFrom<DISCRIMINANT_TYPE> for ENUM_TYPE`
 ///
 /// The discriminant may be a `const` item, but not a `static`.
+/// It can also be the result of a `const fn` call, which will be evaluated only once.
 ///
 /// # Panics
 /// Panics if there is a variant without a custom discriminant.
@@ -113,9 +114,32 @@ pub fn next_variant(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
 /// Adds methods for unwrapping variants of the enum.
 ///
-/// This derive macro can only be applied to enums where the annotated
+/// Any variant that contains exactly one unnamed field can be annotated with the `unwrap` attribute.
+/// There are two possible forms for it, which may be combined: `unwrap(ref)` and `unwrap(mut)`.
 ///
-/// The generated methods will return the
+/// The generated method will require `&self` or `&mut self` and return `&T` or `&mut T`,
+/// where `T` is the type of the single unnamed field.
+///
+/// Like `Option::unwrap`, `Result::unwrap` or `Result::unwrap_err`, this panics if the contained
+/// variant is not existent.
+///
+/// # Examples
+/// ```
+/// use enum_macros::UnwrapVariant;
+///
+/// #[derive(UnwrapVariant)]
+/// enum Test {
+///     #[unwrap(ref, mut)]
+///     A(String),
+///     B(usize),
+/// }
+///
+/// let mut test = Test::A(String::from("hello"));
+/// assert_eq!(test.unwrap_A_ref(), "hello");
+///     
+/// test.unwrap_A_mut().push_str(" world");
+/// assert_eq!(test.unwrap_A_ref(), "hello world");
+/// ```
 #[cfg(feature = "unwrap_variant")]
 #[proc_macro_derive(UnwrapVariant, attributes(unwrap))]
 pub fn unwrap_variant(item: TokenStream) -> TokenStream {
