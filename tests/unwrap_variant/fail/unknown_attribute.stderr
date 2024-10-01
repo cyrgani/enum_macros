@@ -1,0 +1,5 @@
+error: unrecognized unwrap attribute
+ --> tests/unwrap_variant/fail/unknown_attribute.rs:6:14
+  |
+6 |     #[unwrap(xyz)]
+  |              ^^^

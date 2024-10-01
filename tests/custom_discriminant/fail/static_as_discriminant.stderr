@@ -1,0 +1,29 @@
+error[E0658]: referencing statics in constants is unstable
+ --> tests/custom_discriminant/fail/static_as_discriminant.rs:8:11
+  |
+8 |     Bar = BAR,
+  |           ^^^
+  |
+  = note: see issue #119618 <https://github.com/rust-lang/rust/issues/119618> for more information
+  = help: add `#![feature(const_refs_to_static)]` to the crate attributes to enable
+  = note: `static` and `const` variables can refer to other `const` variables. A `const` variable, however, cannot refer to a `static` variable.
+  = help: to fix this, the value can be extracted to a `const` and then used.
+
+error[E0658]: referencing statics in constants is unstable
+ --> tests/custom_discriminant/fail/static_as_discriminant.rs:9:11
+  |
+9 |     Baz = BAZ,
+  |           ^^^
+  |
+  = note: see issue #119618 <https://github.com/rust-lang/rust/issues/119618> for more information
+  = help: add `#![feature(const_refs_to_static)]` to the crate attributes to enable
+  = note: `static` and `const` variables can refer to other `const` variables. A `const` variable, however, cannot refer to a `static` variable.
+  = help: to fix this, the value can be extracted to a `const` and then used.
+
+error: could not evaluate constant pattern
+ --> tests/custom_discriminant/fail/static_as_discriminant.rs:6:1
+  |
+6 | #[custom_discriminant(u8)]
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: this error originates in the attribute macro `custom_discriminant` (in Nightly builds, run with -Z macro-backtrace for more info)

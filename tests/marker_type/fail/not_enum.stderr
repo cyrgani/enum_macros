@@ -1,0 +1,11 @@
+error: expected `enum`
+ --> tests/marker_type/fail/not_enum.rs:4:1
+  |
+4 | struct S {
+  | ^^^^^^
+
+error: expected `enum`
+  --> tests/marker_type/fail/not_enum.rs:10:1
+   |
+10 | union U {
+   | ^^^^^

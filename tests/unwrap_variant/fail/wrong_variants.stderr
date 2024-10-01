@@ -1,0 +1,27 @@
+error: UnwrapVariant can only be derived for single unnamed variants
+ --> tests/unwrap_variant/fail/wrong_variants.rs:6:5
+  |
+6 | /     #[unwrap(ref)]
+7 | |     A { v: u8 },
+  | |_______________^
+
+error: UnwrapVariant can only be derived for single unnamed variants
+ --> tests/unwrap_variant/fail/wrong_variants.rs:8:5
+  |
+8 | /     #[unwrap(mut)]
+9 | |     B,
+  | |_____^
+
+error: UnwrapVariant can only be derived for single unnamed variants
+  --> tests/unwrap_variant/fail/wrong_variants.rs:10:5
+   |
+10 | /     #[unwrap(ref, mut)]
+11 | |     C(u8, u8),
+   | |_____________^
+
+error: UnwrapVariant can only be derived for single unnamed variants
+  --> tests/unwrap_variant/fail/wrong_variants.rs:12:5
+   |
+12 | /     #[unwrap(ref)]
+13 | |     D { },
+   | |_________^

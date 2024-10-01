@@ -1,0 +1,5 @@
+error: cannot use function pointer as discriminant type, see https://github.com/rust-lang/rust/issues/62411
+ --> tests/custom_discriminant/fail/fn_pointer_discriminant.rs:3:23
+  |
+3 | #[custom_discriminant(fn(u8) -> i32)]
+  |                       ^^^^^^^^^^^^^

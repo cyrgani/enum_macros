@@ -1,0 +1,14 @@
+error[E0107]: enum takes 0 generic arguments but 1 generic argument was supplied
+ --> tests/marker_type/fail/invalid_marker_generics.rs:9:13
+  |
+9 | struct F<T>(ComplexMarker<T>);
+  |             ^^^^^^^^^^^^^--- help: remove these generics
+  |             |
+  |             expected 0 generic arguments
+  |
+note: enum defined here, with 0 generic parameters
+ --> tests/marker_type/fail/invalid_marker_generics.rs:3:1
+  |
+3 | #[marker_type]
+  | ^^^^^^^^^^^^^^
+  = note: this error originates in the attribute macro `marker_type` (in Nightly builds, run with -Z macro-backtrace for more info)

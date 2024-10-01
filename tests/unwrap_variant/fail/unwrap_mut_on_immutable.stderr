@@ -1,0 +1,10 @@
+error[E0596]: cannot borrow `x` as mutable, as it is not declared as mutable
+  --> tests/unwrap_variant/fail/unwrap_mut_on_immutable.rs:14:5
+   |
+14 |     x.unwrap_A_mut().push('r');
+   |     ^ cannot borrow as mutable
+   |
+help: consider changing this to be mutable
+   |
+13 |     let mut x = Test::A(String::from("x"));
+   |         +++
