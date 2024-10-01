@@ -5,12 +5,6 @@ error: missing variant discriminant
   |     ^^^
 
 error: missing variant discriminant
- --> tests/custom_discriminant/fail/missing_discriminant.rs:6:5
-  |
-6 |     Baz(u8),
-  |     ^^^^^^^
-
-error: missing variant discriminant
  --> tests/custom_discriminant/fail/missing_discriminant.rs:7:5
   |
 7 |     Thing { foo: u8 },
