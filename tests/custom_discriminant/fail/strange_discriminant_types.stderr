@@ -2,13 +2,13 @@ error: cannot use `impl Trait` as discriminant type
  --> tests/custom_discriminant/fail/strange_discriminant_types.rs:3:23
   |
 3 | #[custom_discriminant(impl Default)]
-  |                       ^^^^^^^^^^^^
+  |                       ^^^^
 
 error: cannot use trait object as discriminant type
  --> tests/custom_discriminant/fail/strange_discriminant_types.rs:9:23
   |
 9 | #[custom_discriminant(dyn Default)]
-  |                       ^^^^^^^^^^^
+  |                       ^^^
 
 error: cannot infer discriminant type
   --> tests/custom_discriminant/fail/strange_discriminant_types.rs:15:23
