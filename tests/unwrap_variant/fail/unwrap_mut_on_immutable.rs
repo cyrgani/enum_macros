@@ -11,6 +11,6 @@ enum Test {
 
 fn main() {
     let x = Test::A(String::from("x"));
-    x.unwrap_A_mut().push('r');
-    assert_eq!(x.unwrap_A_ref(), "rx");
+    x.unwrap_a_mut().push('r');
+    assert_eq!(x.unwrap_a_ref(), "rx");
 }

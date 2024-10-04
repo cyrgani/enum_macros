@@ -1,0 +1,14 @@
+error[E0308]: mismatched types
+  --> tests/unwrap_variant/fail/wrong_call.rs:11:33
+   |
+11 |     let _a = Test::unwrap_a_ref(1);
+   |              ------------------ ^ expected `&Test`, found integer
+   |              |
+   |              arguments to this function are incorrect
+   |
+note: method defined here
+  --> tests/unwrap_variant/fail/wrong_call.rs:3:10
+   |
+3  | #[derive(UnwrapVariant)]
+   |          ^^^^^^^^^^^^^
+   = note: this error originates in the derive macro `UnwrapVariant` (in Nightly builds, run with -Z macro-backtrace for more info)

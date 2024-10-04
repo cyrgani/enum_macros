@@ -57,9 +57,10 @@ pub fn unwrap_variant(item: ItemEnum) -> Result<TokenStream, Error> {
 
         let variant_ident = &variant.ident;
 
-        for ident in processed_attrs {
-            let method_ident = format_ident!("unwrap_{variant_ident}_{ident}");
-            let ref_ty = if ident == "ref" {
+        for kind in processed_attrs {
+            let lowercase_variant = variant_ident.to_string().to_lowercase();
+            let method_ident = format_ident!("unwrap_{lowercase_variant}_{kind}");
+            let ref_ty = if kind == "ref" {
                 quote! {&}
             } else {
                 quote! {&mut}
