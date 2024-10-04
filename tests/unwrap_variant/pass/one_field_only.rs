@@ -10,8 +10,8 @@ enum Test {
 
 fn main() {
     let mut test = Test::A(String::from("hello"));
-    assert_eq!(test.unwrap_A_ref(), "hello");
+    assert_eq!(test.unwrap_a_ref(), "hello");
 
-    test.unwrap_A_mut().push_str(" world");
-    assert_eq!(test.unwrap_A_ref(), "hello world");
+    test.unwrap_a_mut().push_str(" world");
+    assert_eq!(test.unwrap_a_ref(), "hello world");
 }

@@ -1,0 +1,27 @@
+error[E0599]: no variant or associated item named `unwrap_A_ref` found for enum `Test` in the current scope
+  --> tests/unwrap_variant/fail/wrong_method_name.rs:12:29
+   |
+4  | enum Test {
+   | --------- variant or associated item `unwrap_A_ref` not found for this enum
+...
+12 |     let _a: &String = Test::unwrap_A_ref();
+   |                             ^^^^^^^^^^^^ variant or associated item not found in `Test`
+   |
+help: there is a method `unwrap_b_ref` with a similar name
+   |
+12 |     let _a: &String = Test::unwrap_b_ref();
+   |                             ~~~~~~~~~~~~
+
+error[E0599]: no variant or associated item named `unwrap_B_mut` found for enum `Test` in the current scope
+  --> tests/unwrap_variant/fail/wrong_method_name.rs:13:32
+   |
+4  | enum Test {
+   | --------- variant or associated item `unwrap_B_mut` not found for this enum
+...
+13 |     let _b: &mut usize = Test::unwrap_B_mut();
+   |                                ^^^^^^^^^^^^ variant or associated item not found in `Test`
+   |
+help: there is a method `unwrap_a_mut` with a similar name
+   |
+13 |     let _b: &mut usize = Test::unwrap_a_mut();
+   |                                ~~~~~~~~~~~~

@@ -7,4 +7,10 @@ enum Test {
     A(u8),
 }
 
-fn main() {}
+fn main() {
+    let mut a = Test::A(9);
+    let x: &mut u8 = a.unwrap_a_mut();
+    *x = 16;
+    let y: &u8 = a.unwrap_a_ref();
+    assert_eq!(*y, 16);
+}
