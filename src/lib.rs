@@ -57,23 +57,26 @@ pub fn custom_discriminant(attr: TokenStream, item: TokenStream) -> TokenStream 
 }
 
 /// Adds a new enum that has the same variants as this enum, but holds no data.
-/// The new enum will be called `{OLD_NAME}Marker` and always implement [`Clone`] and [`Copy`].
+/// The new enum will be called `{OLD_NAME}Marker` and always implement
+/// [`Debug`], [`Clone`], [`Copy`], [`PartialEq`], [`Eq`], [`Hash`].
 ///
-/// Any macros applied to the enum preceding this one will be invoked on the marker type as well.
+/// Any other macros applied to the enum will not be invoked on the marker type.
+/// Such atttributes can be given as an argument to `#[marker_type]` instead.
 ///
 /// # Examples
+/// Simple case:
 /// ```
 /// use enum_macros::marker_type;
 ///
 /// #[marker_type]
-/// enum Type<'a, T: Clone> {
+/// enum Type<'a, T> {
 ///     A(&'a u32),
 ///     B(T),
 ///     C(&'a T),
 /// }
 ///
 /// /* generates:
-/// #[derive(Clone, Copy)]
+/// #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
 /// enum TypeMarker {
 ///     A,
 ///     B,
@@ -81,10 +84,31 @@ pub fn custom_discriminant(attr: TokenStream, item: TokenStream) -> TokenStream 
 /// }
 /// */
 /// ```
+///
+/// With arguments:
+/// ```
+/// use enum_macros::marker_type;
+///
+/// #[marker_type(derive(Ord), derive(PartialOrd))]
+/// enum Example {
+///     Int(u8),
+///     Float(f32),
+/// }
+///
+/// let int_marker = ExampleMarker::Int;
+/// let float_marker = ExampleMarker::Float;
+///
+/// assert!(int_marker < float_marker);
+/// assert!(float_marker > int_marker);
+///
 #[cfg(feature = "marker_type")]
 #[proc_macro_attribute]
-pub fn marker_type(_attr: TokenStream, item: TokenStream) -> TokenStream {
-    marker_type::marker_type(parse_macro_input!(item as ItemEnum)).into()
+pub fn marker_type(attr: TokenStream, item: TokenStream) -> TokenStream {
+    marker_type::marker_type(
+        parse_macro_input!(attr as marker_type::Arguments),
+        parse_macro_input!(item as ItemEnum),
+    )
+    .into()
 }
 
 /// Adds a method for advancing to the next enum variant.
@@ -152,9 +176,9 @@ pub fn unwrap_variant(item: TokenStream) -> TokenStream {
 ///
 /// # Examples
 /// ```
-/// use enum_macros::variant_amount;
+/// use enum_macros::VariantAmount;
 ///
-/// #[variant_amount]
+/// #[derive(VariantAmount)]
 /// enum Example {
 ///     A,
 ///     B,
@@ -164,7 +188,7 @@ pub fn unwrap_variant(item: TokenStream) -> TokenStream {
 /// assert_eq!(Example::VARIANT_AMOUNT, 3);
 /// ```
 #[cfg(feature = "variant_amount")]
-#[proc_macro_attribute]
-pub fn variant_amount(_attr: TokenStream, item: TokenStream) -> TokenStream {
+#[proc_macro_derive(VariantAmount)]
+pub fn variant_amount(item: TokenStream) -> TokenStream {
     variant_amount::variant_amount(parse_macro_input!(item as ItemEnum)).into()
 }

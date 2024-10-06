@@ -1,3 +1,10 @@
+## 0.0.3
+- changed `UnwrapVariant`-generated method names to `snake_case`
+- stop applying macro invocations after `#[marker_type]` to the generated marker type
+- derive `Debug`, `PartialEq`, `Eq` and `Hash` for generated marker types
+- allow passing arguments in `#[marker_type]` invocations that will be applied to the marker type
+- removed `#[variant_amount]` in favor of the new `VariantAmount` derive macro
+
 ## 0.0.2
 - added `UnwrapVariant` and improved error output
 

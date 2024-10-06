@@ -1,12 +1,12 @@
-use enum_macros::variant_amount;
+use enum_macros::VariantAmount;
 
-#[variant_amount]
+#[derive(VariantAmount)]
 struct S {
     a: u32,
     b: u8,
 }
 
-#[variant_amount]
+#[derive(VariantAmount)]
 union U {
     a: u32,
     b: f32,
