@@ -1,6 +1,6 @@
-use enum_macros::variant_amount;
+use enum_macros::VariantAmount;
 
-#[variant_amount]
+#[derive(VariantAmount)]
 #[allow(dead_code)]
 enum Complex<T, S: Default, const N: usize>
 where

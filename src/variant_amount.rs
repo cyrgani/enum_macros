@@ -8,8 +8,6 @@ pub fn variant_amount(item: ItemEnum) -> TokenStream {
     let impl_header = impl_header(&item);
 
     quote! {
-        #item
-
         impl #impl_header {
             pub const VARIANT_AMOUNT: ::core::primitive::usize = #variant_amount;
         }
