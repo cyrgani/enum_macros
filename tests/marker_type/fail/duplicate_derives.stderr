@@ -1,0 +1,112 @@
+error[E0119]: conflicting implementations of trait `Clone` for type `ComplexMarker`
+ --> tests/marker_type/fail/duplicate_derives.rs:4:22
+  |
+4 | #[marker_type(derive(Clone, Copy, Debug, Hash, PartialEq, Eq))]
+  | ---------------------^^^^^-------------------------------------
+  | |                    |
+  | |                    conflicting implementation for `ComplexMarker`
+  | first implementation here
+  |
+  = note: this error originates in the derive macro `Clone` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0119]: conflicting implementations of trait `Copy` for type `ComplexMarker`
+ --> tests/marker_type/fail/duplicate_derives.rs:4:29
+  |
+4 | #[marker_type(derive(Clone, Copy, Debug, Hash, PartialEq, Eq))]
+  | ----------------------------^^^^-------------------------------
+  | |                           |
+  | |                           conflicting implementation for `ComplexMarker`
+  | first implementation here
+  |
+  = note: this error originates in the derive macro `Copy` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0119]: conflicting implementations of trait `Debug` for type `ComplexMarker`
+ --> tests/marker_type/fail/duplicate_derives.rs:4:35
+  |
+4 | #[marker_type(derive(Clone, Copy, Debug, Hash, PartialEq, Eq))]
+  | ----------------------------------^^^^^------------------------
+  | |                                 |
+  | |                                 conflicting implementation for `ComplexMarker`
+  | first implementation here
+  |
+  = note: this error originates in the derive macro `Debug` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0119]: conflicting implementations of trait `Hash` for type `ComplexMarker`
+ --> tests/marker_type/fail/duplicate_derives.rs:4:42
+  |
+4 | #[marker_type(derive(Clone, Copy, Debug, Hash, PartialEq, Eq))]
+  | -----------------------------------------^^^^------------------
+  | |                                        |
+  | |                                        conflicting implementation for `ComplexMarker`
+  | first implementation here
+  |
+  = note: this error originates in the derive macro `Hash` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0119]: conflicting implementations of trait `StructuralPartialEq` for type `ComplexMarker`
+ --> tests/marker_type/fail/duplicate_derives.rs:4:48
+  |
+4 | #[marker_type(derive(Clone, Copy, Debug, Hash, PartialEq, Eq))]
+  | -----------------------------------------------^^^^^^^^^-------
+  | |                                              |
+  | |                                              conflicting implementation for `ComplexMarker`
+  | first implementation here
+  |
+  = note: this error originates in the derive macro `PartialEq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0119]: conflicting implementations of trait `PartialEq` for type `ComplexMarker`
+ --> tests/marker_type/fail/duplicate_derives.rs:4:48
+  |
+4 | #[marker_type(derive(Clone, Copy, Debug, Hash, PartialEq, Eq))]
+  | -----------------------------------------------^^^^^^^^^-------
+  | |                                              |
+  | |                                              conflicting implementation for `ComplexMarker`
+  | first implementation here
+  |
+  = note: this error originates in the derive macro `PartialEq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0119]: conflicting implementations of trait `Eq` for type `ComplexMarker`
+ --> tests/marker_type/fail/duplicate_derives.rs:4:59
+  |
+4 | #[marker_type(derive(Clone, Copy, Debug, Hash, PartialEq, Eq))]
+  | ----------------------------------------------------------^^---
+  | |                                                         |
+  | |                                                         conflicting implementation for `ComplexMarker`
+  | first implementation here
+  |
+  = note: this error originates in the derive macro `Eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0507]: cannot move out of `*self` which is behind a shared reference
+ --> tests/marker_type/fail/duplicate_derives.rs:4:22
+  |
+4 | #[marker_type(derive(Clone, Copy, Debug, Hash, PartialEq, Eq))]
+  |                      ^^^^^ move occurs because `*self` has type `ComplexMarker`, which does not implement the `Copy` trait
+  |
+note: if `ComplexMarker` implemented `Clone`, you could clone the value
+ --> tests/marker_type/fail/duplicate_derives.rs:5:1
+  |
+4 |   #[marker_type(derive(Clone, Copy, Debug, Hash, PartialEq, Eq))]
+  |                        ----- you could clone this value
+5 | / enum Complex {
+6 | |     A(bool),
+7 | |     B { val: u8 },
+8 | | }
+  | |_^ consider implementing `Clone` for this type
+  = note: this error originates in the derive macro `Clone` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0507]: cannot move out of `*self` which is behind a shared reference
+ --> tests/marker_type/fail/duplicate_derives.rs:4:1
+  |
+4 | #[marker_type(derive(Clone, Copy, Debug, Hash, PartialEq, Eq))]
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ move occurs because `*self` has type `ComplexMarker`, which does not implement the `Copy` trait
+  |
+note: if `ComplexMarker` implemented `Clone`, you could clone the value
+ --> tests/marker_type/fail/duplicate_derives.rs:5:1
+  |
+4 |   #[marker_type(derive(Clone, Copy, Debug, Hash, PartialEq, Eq))]
+  |   --------------------------------------------------------------- you could clone this value
+5 | / enum Complex {
+6 | |     A(bool),
+7 | |     B { val: u8 },
+8 | | }
+  | |_^ consider implementing `Clone` for this type
+  = note: this error originates in the derive macro `Clone` (in Nightly builds, run with -Z macro-backtrace for more info)
