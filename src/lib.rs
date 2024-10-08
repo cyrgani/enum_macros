@@ -1,7 +1,10 @@
-#![cfg_attr(not(feature = "std"), no_std)]
 //! A collection of useful macros that make working with enums easier.
+#![no_std]
 #![warn(clippy::pedantic, clippy::nursery, clippy::cargo, missing_docs)]
 #![allow(clippy::needless_pass_by_value)]
+
+extern crate alloc;
+
 use proc_macro::TokenStream;
 use syn::{parse_macro_input, Error, ItemEnum};
 

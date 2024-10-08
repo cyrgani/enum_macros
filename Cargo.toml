@@ -21,11 +21,10 @@ proc-macro2 = "1"
 custom_discriminant = []
 marker_type = []
 next_variant = []
-std = []
 unwrap_variant = []
 variant_amount = []
 default = ["all"]
-all = ["custom_discriminant", "marker_type", "next_variant", "std", "variant_amount", "unwrap_variant"]
+all = ["custom_discriminant", "marker_type", "next_variant", "variant_amount", "unwrap_variant"]
 
 [dev-dependencies]
 enum_macros = { path = ".", default-features = false, features = ["all"] }

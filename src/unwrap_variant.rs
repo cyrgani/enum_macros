@@ -1,4 +1,6 @@
 use crate::utils::impl_header;
+use alloc::string::ToString;
+use alloc::vec;
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 use syn::{Error, Fields, FieldsUnnamed, ItemEnum};
