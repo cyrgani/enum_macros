@@ -3,8 +3,6 @@ use proc_macro2::TokenStream;
 use quote::quote;
 use syn::ItemEnum;
 
-extern crate alloc;
-
 pub fn next_variant(item: ItemEnum) -> TokenStream {
     let impl_header = impl_header(&item);
     let mut next_variant_match_lines = TokenStream::new();
