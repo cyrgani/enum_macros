@@ -1,7 +1,6 @@
-use enum_macros::next_variant;
+use enum_macros::NextVariant;
 
-#[next_variant]
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, NextVariant)]
 enum Complex<T, S: Default, const N: usize>
 where
     T: Default,

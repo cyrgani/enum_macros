@@ -1,8 +1,7 @@
 #![allow(unused_imports)]
 use enum_macros::*;
 
-#[next_variant]
-#[derive(UnwrapVariant, VariantAmount)]
+#[derive(UnwrapVariant, VariantAmount, NextVariant)]
 #[custom_discriminant(&'static str)]
 #[allow(dead_code)]
 #[marker_type]
@@ -23,8 +22,7 @@ where
 }
 
 #[custom_discriminant(&'static str)]
-#[next_variant]
-#[derive(UnwrapVariant, VariantAmount)]
+#[derive(UnwrapVariant, VariantAmount, NextVariant)]
 #[allow(dead_code)]
 #[marker_type]
 pub(crate) enum Void {}

@@ -1,6 +1,6 @@
-use enum_macros::next_variant;
+use enum_macros::NextVariant;
 
-#[next_variant]
+#[derive(NextVariant)]
 enum Complex<T> {
     A { val: T },
     B(u8),
