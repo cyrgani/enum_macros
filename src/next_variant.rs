@@ -26,8 +26,6 @@ pub fn next_variant(item: ItemEnum) -> TokenStream {
     }
 
     quote! {
-        #item
-
         impl #impl_header {
             pub fn next_variant(&self) -> Self {
                 match self {

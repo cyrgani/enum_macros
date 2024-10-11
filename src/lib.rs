@@ -35,7 +35,8 @@ mod variant_amount;
 /// * `impl TryFrom<DISCRIMINANT_TYPE> for ENUM_TYPE`
 ///
 /// The discriminant may be a `const` item, but not a `static`.
-/// It can also be the result of a `const fn` call, which will be evaluated only once.
+/// It can also be the result of a `const fn` call, which will be evaluated
+/// only once during compilation and then stored.
 ///
 /// # Panics
 /// Panics if there is a variant without a custom discriminant.
@@ -117,14 +118,13 @@ pub fn marker_type(attr: TokenStream, item: TokenStream) -> TokenStream {
 /// Adds a method for advancing to the next enum variant.
 /// Wraps around at the last element.
 ///
-/// For enum variants with data, every field must implement [Default](Default).
+/// For enum variants with data, every field must implement [`Default`].
 ///
 /// # Examples
 /// ```
-/// use enum_macros::next_variant;
+/// use enum_macros::NextVariant;
 ///
-/// #[next_variant]
-/// #[derive(PartialEq, Debug)]
+/// #[derive(PartialEq, Debug, NextVariant)]
 /// enum Example {
 ///     A,
 ///     B,
@@ -134,8 +134,8 @@ pub fn marker_type(attr: TokenStream, item: TokenStream) -> TokenStream {
 /// assert_eq!(Example::A, Example::B.next_variant());
 /// ```
 #[cfg(feature = "next_variant")]
-#[proc_macro_attribute]
-pub fn next_variant(_attr: TokenStream, item: TokenStream) -> TokenStream {
+#[proc_macro_derive(NextVariant)]
+pub fn next_variant(item: TokenStream) -> TokenStream {
     next_variant::next_variant(parse_macro_input!(item as ItemEnum)).into()
 }
 

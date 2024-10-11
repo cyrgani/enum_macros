@@ -1,12 +1,12 @@
-use enum_macros::next_variant;
+use enum_macros::NextVariant;
 
-#[next_variant]
+#[derive(NextVariant)]
 struct S {
     a: u32,
     b: u8,
 }
 
-#[next_variant]
+#[derive(NextVariant)]
 union U {
     a: u32,
     b: f32,
