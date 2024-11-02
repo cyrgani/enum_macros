@@ -17,5 +17,5 @@ By default, all are enabled.
 * `UnwrapVariant`: adds methods for unwrapping variants of an enum
 
 ## `no_std` compability
-The crate is fully `#![no_std]` compatible at the moment. 
-Future versions may introduce a subset of features that require `std` under a new `std` crate feature.
+The crate contains `#![no_std]`, but depends on crates that require `std` at the moment. 
+Future versions may introduce a subset of features that also require `std` under a new `std` crate feature.
