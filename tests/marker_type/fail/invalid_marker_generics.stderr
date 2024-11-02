@@ -2,7 +2,7 @@ error[E0107]: enum takes 0 generic arguments but 1 generic argument was supplied
  --> tests/marker_type/fail/invalid_marker_generics.rs:9:13
   |
 9 | struct F<T>(ComplexMarker<T>);
-  |             ^^^^^^^^^^^^^--- help: remove these generics
+  |             ^^^^^^^^^^^^^--- help: remove the unnecessary generics
   |             |
   |             expected 0 generic arguments
   |

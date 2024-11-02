@@ -10,6 +10,7 @@ const ERROR: &str = "UnwrapVariant can only be derived for single unnamed varian
 pub fn unwrap_variant(item: ItemEnum) -> Result<TokenStream, Error> {
     let mut output = TokenStream::new();
 
+    let enum_ident = &item.ident;
     let impl_header = impl_header(&item);
 
     for variant in &item.variants {
@@ -73,7 +74,7 @@ pub fn unwrap_variant(item: ItemEnum) -> Result<TokenStream, Error> {
                     pub fn #method_ident(#ref_ty self) -> #ref_ty #return_ty {
                         match self {
                             Self::#variant_ident(inner) => inner,
-                            _ => panic!("tried to unwrap the wrong field"),
+                            _ => panic!("called `{}::{}()` on a value of a different variant", stringify!(#enum_ident), stringify!(#method_ident)),
                         }
                     }
                 }
