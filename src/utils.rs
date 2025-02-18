@@ -2,8 +2,6 @@ use proc_macro2::TokenStream;
 use quote::quote;
 use syn::{Fields, ItemEnum};
 
-extern crate alloc;
-
 pub fn impl_header(item: &ItemEnum) -> TokenStream {
     let (impl_generics, ty_generics, where_clause) = item.generics.split_for_impl();
     let enum_ident = &item.ident;
