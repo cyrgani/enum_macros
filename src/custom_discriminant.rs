@@ -14,8 +14,9 @@ fn validate_discriminant_type(ty: &Type) -> Result<(), &'static str> {
         Type::ImplTrait(_) => Err("cannot use `impl Trait` as discriminant type"),
         Type::Infer(_) => Err("cannot infer discriminant type"),
         Type::Macro(_) => Ok(()),
-        // TODO: consider allowing `!`
-        Type::Never(_) => Err("cannot use the never type as discriminant type"), 
+        // NOTE: this cannot be allowed because it would cause conflicting `From` / `TryFrom` impls
+        // with the blanket implementations from `core` to allow never type coercion
+        Type::Never(_) => Err("cannot use the never type as discriminant type"),
         Type::Paren(_) => Ok(()),
         Type::Path(_) => Ok(()),
         Type::Ptr(_) => Ok(()),

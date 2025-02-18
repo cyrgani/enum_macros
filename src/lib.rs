@@ -61,6 +61,7 @@ pub fn custom_discriminant(attr: TokenStream, item: TokenStream) -> TokenStream 
 }
 
 /// Adds a new enum that has the same variants as this enum, but holds no data.
+///
 /// The new enum will be called `{OLD_NAME}Marker` and always implement
 /// [`Debug`], [`Clone`], [`Copy`], [`PartialEq`], [`Eq`], [`Hash`].
 ///
