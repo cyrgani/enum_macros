@@ -6,8 +6,6 @@ error[E0119]: conflicting implementations of trait `Clone` for type `ComplexMark
   | |                    |
   | |                    conflicting implementation for `ComplexMarker`
   | first implementation here
-  |
-  = note: this error originates in the derive macro `Clone` (in Nightly builds, run with -Z macro-backtrace for more info)
 
 error[E0119]: conflicting implementations of trait `Copy` for type `ComplexMarker`
  --> tests/marker_type/fail/duplicate_derives.rs:3:29
@@ -17,8 +15,6 @@ error[E0119]: conflicting implementations of trait `Copy` for type `ComplexMarke
   | |                           |
   | |                           conflicting implementation for `ComplexMarker`
   | first implementation here
-  |
-  = note: this error originates in the derive macro `Copy` (in Nightly builds, run with -Z macro-backtrace for more info)
 
 error[E0119]: conflicting implementations of trait `Debug` for type `ComplexMarker`
  --> tests/marker_type/fail/duplicate_derives.rs:3:35
@@ -28,8 +24,6 @@ error[E0119]: conflicting implementations of trait `Debug` for type `ComplexMark
   | |                                 |
   | |                                 conflicting implementation for `ComplexMarker`
   | first implementation here
-  |
-  = note: this error originates in the derive macro `Debug` (in Nightly builds, run with -Z macro-backtrace for more info)
 
 error[E0119]: conflicting implementations of trait `Hash` for type `ComplexMarker`
  --> tests/marker_type/fail/duplicate_derives.rs:3:42
@@ -39,8 +33,6 @@ error[E0119]: conflicting implementations of trait `Hash` for type `ComplexMarke
   | |                                        |
   | |                                        conflicting implementation for `ComplexMarker`
   | first implementation here
-  |
-  = note: this error originates in the derive macro `Hash` (in Nightly builds, run with -Z macro-backtrace for more info)
 
 error[E0119]: conflicting implementations of trait `StructuralPartialEq` for type `ComplexMarker`
  --> tests/marker_type/fail/duplicate_derives.rs:3:48
@@ -50,8 +42,6 @@ error[E0119]: conflicting implementations of trait `StructuralPartialEq` for typ
   | |                                              |
   | |                                              conflicting implementation for `ComplexMarker`
   | first implementation here
-  |
-  = note: this error originates in the derive macro `PartialEq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
 error[E0119]: conflicting implementations of trait `PartialEq` for type `ComplexMarker`
  --> tests/marker_type/fail/duplicate_derives.rs:3:48
@@ -61,8 +51,6 @@ error[E0119]: conflicting implementations of trait `PartialEq` for type `Complex
   | |                                              |
   | |                                              conflicting implementation for `ComplexMarker`
   | first implementation here
-  |
-  = note: this error originates in the derive macro `PartialEq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
 error[E0119]: conflicting implementations of trait `Eq` for type `ComplexMarker`
  --> tests/marker_type/fail/duplicate_derives.rs:3:59
@@ -72,5 +60,3 @@ error[E0119]: conflicting implementations of trait `Eq` for type `ComplexMarker`
   | |                                                         |
   | |                                                         conflicting implementation for `ComplexMarker`
   | first implementation here
-  |
-  = note: this error originates in the derive macro `Eq` (in Nightly builds, run with -Z macro-backtrace for more info)

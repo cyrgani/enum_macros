@@ -1,3 +1,6 @@
+## 0.0.4
+- removed misleading claims about `#![no_std]`
+
 ## 0.0.3
 - changed `UnwrapVariant`-generated method names to `snake_case`
 - stop applying macro invocations after `#[marker_type]` to the generated marker type
