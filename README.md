@@ -15,7 +15,3 @@ By default, all are enabled.
 * `NextVariant`: allows moving forward through the variants of an enum
 * `VariantAmount`: adds a constant storing the amount of variants the enum has
 * `UnwrapVariant`: adds methods for unwrapping variants of an enum
-
-## `no_std` compability
-The crate contains `#![no_std]`, but depends on crates that require `std` at the moment. 
-Future versions may introduce a subset of features that also require `std` under a new `std` crate feature.
