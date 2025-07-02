@@ -4,6 +4,7 @@
 #![allow(clippy::needless_pass_by_value)]
 
 extern crate alloc;
+extern crate self as enum_macros;
 
 use proc_macro::TokenStream;
 use syn::{parse_macro_input, Error, ItemEnum};
@@ -38,14 +39,24 @@ mod variant_amount;
 /// It can also be the result of a `const fn` call, which will be evaluated
 /// only once during compilation and then stored.
 ///
+/// # `str` as discriminant
+/// If the given discriminant type is `str` (not `&str` or `&'static str`!),
+/// the implementation will be split into two impls with slightly different types:
+/// * `impl From<ENUM_TYPE> for &'static str`
+/// * `impl TryFrom<&str> for ENUM_TYPE`
+///
+/// Using `&'static str` as the discriminant type is not recommended,
+/// since it will be much harder to call `From::from(&'static str)` than
+/// `From::from(&str)`.
+///
 /// # Panics
-/// Panics if there is a variant without a custom discriminant.
+/// Panics if there is a variant without a custom discriminant or the discriminant type is invalid.
 ///
 /// # Examples
 /// ```
 /// use enum_macros::custom_discriminant;
 ///
-/// #[custom_discriminant(&'static str)]
+/// #[custom_discriminant(str)]
 /// enum Example {
 ///     Data = "Data",
 ///     Thing = "OtherThing",

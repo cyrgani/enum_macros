@@ -1,5 +1,6 @@
 ## 0.0.4
 - removed misleading claims about `#![no_std]`
+- special-casing of `#[custom_discriminant(str)]` as the preferred alternative
 
 ## 0.0.3
 - changed `UnwrapVariant`-generated method names to `snake_case`
