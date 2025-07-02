@@ -8,6 +8,7 @@ const BAZ: u8 = 1;
 enum Foo {
     Bar = BAR,
     Baz = BAZ,
+    Boo = const { 143 - 101 },
 }
 
 fn main() {
@@ -17,4 +18,5 @@ fn main() {
     assert_eq!(Foo::try_from(BAZ), Ok(Foo::Baz));
     assert_eq!(Foo::try_from(0), Ok(Foo::Bar));
     assert_eq!(Foo::try_from(2), Err(()));
+    assert_eq!(Foo::try_from(42), Ok(Foo::Boo));
 }

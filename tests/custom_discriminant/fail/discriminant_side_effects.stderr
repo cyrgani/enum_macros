@@ -1,0 +1,31 @@
+error[E0080]: evaluation of constant value failed
+  --> tests/custom_discriminant/fail/discriminant_side_effects.rs:13:9
+   |
+13 |     A = f(),
+   |         ^^^ constant accesses mutable global memory
+   |
+note: inside `f`
+  --> tests/custom_discriminant/fail/discriminant_side_effects.rs:4:19
+   |
+4  |         let old = X;
+   |                   ^ the failure occurred here
+
+error[E0080]: evaluation of constant value failed
+  --> tests/custom_discriminant/fail/discriminant_side_effects.rs:14:9
+   |
+14 |     B = f(),
+   |         ^^^ constant accesses mutable global memory
+   |
+note: inside `f`
+  --> tests/custom_discriminant/fail/discriminant_side_effects.rs:4:19
+   |
+4  |         let old = X;
+   |                   ^ the failure occurred here
+
+note: erroneous constant encountered
+  --> tests/custom_discriminant/fail/discriminant_side_effects.rs:10:1
+   |
+10 | #[enum_macros::custom_discriminant(u8)]
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this note originates in the attribute macro `enum_macros::custom_discriminant` (in Nightly builds, run with -Z macro-backtrace for more info)

@@ -19,7 +19,7 @@ enum Foo3 {
 }
 
 #[custom_discriminant(!)]
-enum Foo3 {
+enum Foo4 {
     Bar,
     Baz,
 }
