@@ -1,8 +1,9 @@
 use crate::utils::{default_fields_right, ignore_fields_left, impl_header};
+use alloc::string::ToString;
 use proc_macro2::TokenStream;
-use quote::{format_ident, quote};
+use quote::{format_ident, quote, ToTokens};
 use syn::spanned::Spanned;
-use syn::{Error, ItemEnum, Type, Variant};
+use syn::{parse_str, Error, ItemEnum, Type, Variant};
 
 fn validate_discriminant_type(ty: &Type) -> Result<(), &'static str> {
     #[allow(clippy::match_same_arms)]
@@ -30,6 +31,10 @@ fn validate_discriminant_type(ty: &Type) -> Result<(), &'static str> {
     }
 }
 
+/// TODO:
+///  it is not reasonably possible to design something right now that has a string discriminant:
+///  if we use `#[custom_discriminant(&str)]`, `impl From<Enum> for &str` does not compile
+///  if we use `#[custom_discriminant(&'static str)]`, `impl TryFrom<&'static str> for Enum` is too strict
 pub fn custom_discriminant(attr: TokenStream, item: ItemEnum) -> TokenStream {
     let attr_span = attr.span();
 
@@ -49,6 +54,13 @@ pub fn custom_discriminant(attr: TokenStream, item: ItemEnum) -> TokenStream {
         #enum_ident #ty_generics
     };
 
+    let mut disc_arg_ty = disc_ty.clone();
+    let mut disc_ret_ty = disc_ty.clone();
+    if disc_ty.to_token_stream().to_string() == "str" {
+        disc_ret_ty = parse_str("&'static str").unwrap();
+        disc_arg_ty = parse_str("&str").unwrap();
+    }
+
     let mut variant_to_discriminant_match_lines = TokenStream::new();
     let mut try_discriminant_to_variant_match_lines = TokenStream::new();
 
@@ -66,7 +78,8 @@ pub fn custom_discriminant(attr: TokenStream, item: ItemEnum) -> TokenStream {
 
         let const_ident = format_ident!("__DISCRIMINANT_{variant_ident}");
         consts.extend(quote! {
-            const #const_ident: #disc_ty = #discriminant;
+            #[doc(hidden)]
+            const #const_ident: #disc_ret_ty = #discriminant;
         });
 
         let left_side = ignore_fields_left(&variant.fields);
@@ -103,7 +116,7 @@ pub fn custom_discriminant(attr: TokenStream, item: ItemEnum) -> TokenStream {
         }
 
         impl #impl_header {
-            pub fn custom_discriminant(&self) -> #disc_ty {
+            pub fn custom_discriminant(&self) -> #disc_ret_ty {
                 match self {
                     #variant_to_discriminant_match_lines
                     _ => unreachable!(),
@@ -111,16 +124,16 @@ pub fn custom_discriminant(attr: TokenStream, item: ItemEnum) -> TokenStream {
             }
         }
 
-        impl #impl_generics From<#enum_type> for #disc_ty #where_clause {
+        impl #impl_generics From<#enum_type> for #disc_ret_ty #where_clause {
             fn from(value: #enum_type) -> Self {
                 value.custom_discriminant()
             }
         }
 
-        impl #impl_generics TryFrom<#disc_ty> for #enum_type #where_clause {
+        impl #impl_generics TryFrom<#disc_arg_ty> for #enum_type #where_clause {
             type Error = ();
 
-            fn try_from(value: #disc_ty) -> Result<Self, Self::Error> {
+            fn try_from(value: #disc_arg_ty) -> Result<Self, Self::Error> {
                 match value {
                     #try_discriminant_to_variant_match_lines
                     _ => ::core::result::Result::Err(()),
