@@ -31,10 +31,6 @@ fn validate_discriminant_type(ty: &Type) -> Result<(), &'static str> {
     }
 }
 
-/// TODO:
-///  it is not reasonably possible to design something right now that has a string discriminant:
-///  if we use `#[custom_discriminant(&str)]`, `impl From<Enum> for &str` does not compile
-///  if we use `#[custom_discriminant(&'static str)]`, `impl TryFrom<&'static str> for Enum` is too strict
 pub fn custom_discriminant(attr: TokenStream, item: ItemEnum) -> TokenStream {
     let attr_span = attr.span();
 
